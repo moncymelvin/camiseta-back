@@ -83,6 +83,8 @@ exports.saveAddress = async (req, res) => {
   res.json({ ok: true });
 };
 
+
+
 exports.applyCouponToUserCart = async (req, res) => {
   const { coupon } = req.body;
   console.log("COUPON", coupon);
@@ -181,6 +183,17 @@ exports.wishlist = async (req, res) => {
     .exec();
 
   res.json(list);
+};
+
+exports.getAddress = async (req, res) => {
+  const userAddress = await User.findOne(
+    { email: req.user.email }
+  )
+  .select("address")
+  
+  .exec();
+
+  res.json(userAddress);
 };
 
 exports.removeFromWishlist = async (req, res) => {
